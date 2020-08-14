@@ -1,0 +1,46 @@
+<script>
+    /**
+	 * @param {number[]} nums
+	 * @param {number} k
+	 * @return {void} Do not return anything, modify nums in-place instead.
+	 */
+	var rotate = function(nums, k) {
+	    k = k % nums.length; // k可以超出数组长度，
+		let count = 0; // 计算遍历次数
+
+		/*
+		 * 该循环实现2种效果：
+		 * 1. count为当前移动的次数，当count达到数组的最后一位时，表示翻转已经结束。
+		 * 2. start为当前翻转的起始位置，为了处理两种情况，参照while循环的条件
+		 */
+		for (let start = 0; count < nums.length; start++) {
+		  let currentMoveIndex = start; // 记录当前移动的起始位置
+		  let currentMoveItem = nums[start]; // 记录当前移动的起始值
+
+		  do {
+		    // 计算要移动到的位置，循环移动到当前位置的下k个位置
+		    let nextMoveIndex = (currentMoveIndex + k) % nums.length;
+		    // 缓存将要移动位置的值
+		    let temp = nums[nextMoveIndex];
+		    // 将当前值移动到下一个位置
+		    nums[nextMoveIndex] = currentMoveItem;
+		    // temp的值为下一次要被移动的值
+		    currentMoveItem = temp;
+		    // nextMoveIndex即为下一次移动的起始值
+		    currentMoveIndex = nextMoveIndex;
+		    count++; // 计算移动次数
+		  } while (
+		    /*
+		     * 会有两种情况：
+		     * 1. nums.length与k的最大公约数不为1，假设为m。
+		     *    实际就是经过m次while循环之后，start和currentMoveIndex会相等。
+		     *    此时需要向后移动start，继续循环。
+		     * 2. nums.length与k的最大公约数为1，start和currentMoveIndex不会相等。
+		     *    该循环会一直执行到currentMoveIndex=nums.length-1，
+		     *    即刚好遍历了数组一次。
+		     */
+		    start !== currentMoveIndex
+		  );
+		}
+	};
+</script>

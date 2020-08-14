@@ -1,0 +1,21 @@
+<script>
+    /**
+    * @param {number[]} nums
+    * @return {number}
+    */
+    var removeDuplicates = function(nums) {
+        let idx = 0, nowIdx, pass = 0;
+        while(idx + pass + 1 < nums.length){
+            nowIdx = idx + pass + 1;
+            if(nums[idx] === nums[nowIdx]){
+                pass++;
+            }else{
+                idx++;
+                [nums[idx], nums[nowIdx]] = [nums[nowIdx], nums[idx]];
+            }
+        }
+        return idx + 1;
+    };
+    removeDuplicates([1,1,2]);
+    //removeDuplicates([0,0,1,1,1,2,2,3,3,4]);
+</script>
