@@ -1,0 +1,33 @@
+<script>
+    /**
+	 * @param {number} n
+	 * @return {string[]}
+	 */
+	var generateParenthesis = function(n) {
+		_generate(0, 2 * n, "");
+	};
+
+	var _generate = function(level, max, s) {
+		// terminator
+		if (level >= max) {
+			console.log(s);
+			return;
+		}
+		// process current logic: left,right
+
+		// drill down
+		_generate(level + 1, max, s + "(");
+		_generate(level + 1, max, s + ")");
+
+		// reverse states
+	};
+
+
+	/*
+	 * ((
+	 * ()
+	 * )(
+	 * ))
+	 */
+	generateParenthesis(1)
+</script>

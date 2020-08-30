@@ -1,0 +1,25 @@
+class Solution {
+    private int in = 0;
+    private int pre = 0;
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        return build(preorder, inorder, Integer.MIN_VALUE);
+    }
+    private TreeNode build(int[] preorder, int[] inorder, int stop) {
+        if (pre == preorder.length) return null; // pre走到preorder末尾
+        if (inorder[in] == stop) { // in指针走到了停止点
+            in++; // stop点废弃了，in推进一位
+            return null;
+        }
+        TreeNode node = new TreeNode(preorder[pre++]);
+        node.left = build(preorder, inorder, node.val);
+        // 左子树的停止点是当前的根节点的值
+        node.right = build(preorder, inorder, stop);
+        // 右子树的停止点是当前树的停止点
+        return node;        
+    }
+}
+
+作者：xiao_ben_zhu
+链接：https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/solution/ding-wei-chu-gen-jie-dian-de-wei-zhi-hua-fen-zuo-y/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。

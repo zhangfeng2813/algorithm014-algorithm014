@@ -1,0 +1,52 @@
+<script>
+    /**
+	 * Definition for a binary tree node.
+	 * function TreeNode(val) {
+	 *     this.val = val;
+	 *     this.left = this.right = null;
+	 * }
+	 */
+	/**
+	 * @param {number[]} preorder
+	 * @param {number[]} inorder
+	 * @return {TreeNode}
+	 */
+	var buildTree = function(preorder, inorder) {
+		if (inorder.length == 0) return null;
+		const root = new TreeNode(preorder[0]);
+		const mid = inorder.indexOf(preorder[0]);
+		//递归的构造左子树
+		root.left = buildTree(preorder.slice(1, mid + 1), inorder.slice(0, mid));
+		//递归的构造右子树
+		root.right = buildTree(preorder.slice(mid + 1), inorder.slice(mid + 1));
+		return root;
+	};
+
+	function TreeNode(val) {
+		this.val = val;
+		this.left = this.right = null;
+	}
+	let preorder = [3,9,20,15,7]
+	let inorder = [9,3,15,20,7]
+	buildTree(preorder, inorder);
+
+	/*preorder = [3,9,20,15,7]
+	inorder = [9,3,15,20,7]
+	首先根据 preorder 找到根节点是 3
+
+	然后根据根节点将 inorder 分成左子树和右子树
+	左子树
+	inorder [9]
+
+	右子树
+	inorder [15,20,7]
+
+	把相应的前序遍历的数组也加进来
+	左子树
+	preorder[9]
+	inorder [9]
+
+	右子树
+	preorder[20 15 7]
+	inorder [15,20,7]*/
+</script>

@@ -1,0 +1,38 @@
+<script>
+	var result;
+    /**
+	 * @param {number} n
+	 * @return {string[]}
+	 */
+	var generateParenthesis = function(n) {
+		result = [];
+		_generate(0, 0, n, "");
+		return result;
+	};
+
+	var _generate = function(left, right, n, s) {
+		// terminator
+		if (left === n && right === n) { //左括号 有括号 全部用完了
+			result.push(s);
+			return;
+		}
+		// process current logic: left,right
+
+		// drill down
+		if (left < n)	//左括号还没有用完
+			_generate(left + 1, right, n, s + "("); // 用一个左括号
+		if (left > right) //左括号比有括号多  && right < n
+			_generate(left, right + 1, n, s + ")"); // 用一个右括号
+
+		// reverse states
+	};
+
+
+	/*
+	 * ((
+	 * ()
+	 * )(
+	 * ))
+	 */
+	generateParenthesis(1)
+</script>

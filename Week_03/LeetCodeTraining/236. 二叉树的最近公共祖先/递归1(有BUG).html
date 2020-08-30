@@ -1,0 +1,57 @@
+<script>
+	/**
+	 * Definition for a binary tree node.
+	 * function TreeNode(val) {
+	 *     this.val = val;
+	 *     this.left = this.right = null;
+	 * }
+	 */
+	/**
+	 * @param {TreeNode} root
+	 * @param {TreeNode} p
+	 * @param {TreeNode} q
+	 * @return {TreeNode}
+	 */
+	const lowestCommonAncestor = (root, p, q) => {
+	  // 遇到null返回null，遇到p返回p，遇到q返回q
+	  if (root == null || root.val == p || root.val == q) {
+	    return root;
+	  }
+	  // 左子树的LCA
+	  let left = lowestCommonAncestor(root.left, p, q);
+	  // 右子树的LCA
+	  let right = lowestCommonAncestor(root.right, p, q);
+	  // p、q分居左右子树，返回父节点root
+	  if (left && right) {
+	    return root;
+	  } else if (left) {// 左子树有LCA，返回它
+	    return left;
+	  } else { // 否则返回右子树的结果，可能有也可以是null
+	    return right;
+	  }
+	};
+
+	/*LCA(Least Common Ancestors),即最近公共祖先*/
+	function TreeNode(val) {
+		this.val = val;
+		this.left = this.right = null;
+	}
+
+	// 生成二叉树
+	var buildTree = function(arr, i) {
+		if (i >= arr.length) {
+			return null;
+		}
+
+		var node = new TreeNode(arr[i]);
+		node.left = buildTree(arr, 2 * i + 1);
+		node.right = buildTree(arr, 2 * i + 2);
+		return node;
+	};
+
+	var arr = [3, 5, 1, 6, 2, 0, 8, null, null, 7, 4];
+	var root = buildTree(arr, 0);
+	//console.log(root);
+
+	console.log(lowestCommonAncestor(root, 222, 111));
+</script>
